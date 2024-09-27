@@ -1,0 +1,8 @@
+[package]
+name = "shaders"
+edition = "2021"
+
+[dependencies]
+bevy = { version = "0.14.2", features = ["dynamic_linking", "jpeg"] }
+bevy-inspector-egui = "0.25.2"
+bevy_panorbit_camera = "0.19.3"
