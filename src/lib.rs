@@ -6,6 +6,11 @@ pub struct SpawnMaterial<M> {
     pub material: M,
 }
 
+#[derive(Resource)]
+pub struct MaterialHandle<M: Material> {
+    pub id: Handle<M>,
+}
+
 pub struct ExamplePlugin<M>(PhantomData<M>);
 
 impl<M> Default for ExamplePlugin<M> {
@@ -37,11 +42,13 @@ fn full_screen_quad<M: Material>(
 
     commands.spawn(MaterialMeshBundle {
         mesh,
-        material,
+        material: material.clone(),
         // transform:
         transform: Transform::default().looking_at(Vec3::new(0., -1., 0.), Vec3::Y),
         ..default()
     });
+
+    commands.insert_resource(MaterialHandle { id: material });
 
     commands.spawn(Camera3dBundle {
         projection: Projection::Orthographic(OrthographicProjection {
